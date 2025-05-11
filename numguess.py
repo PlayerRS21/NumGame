@@ -10,9 +10,9 @@ import sys
 
 i = 1
 
-user = ["Rs", "Tushar"]
+user = []
 
-pswd = ["1509", "0901"]
+pswd = []
 
 def game():
 
@@ -200,7 +200,7 @@ def signup():
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    uname = input("Enter Your UserName to register or exit to return: ")
+    uname = input("(Warning the credentials will delete automatically on file exit)\nEnter Your UserName to register or exit to return: ")
 
     if uname==" " or uname=="":
 
