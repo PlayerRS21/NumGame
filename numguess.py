@@ -8,11 +8,52 @@ import time
 
 import sys
 
+from enc import encrypt,decrypt
+
 i = 1
 
-user = []
+def verify_login(username, password):
 
-pswd = []
+    try:
+
+        with open(".credential.txt", "r") as file:
+
+            for line in file:
+
+                stored_username, stored_password = line.strip().split(":")
+
+    except FileNotFoundError:
+
+        print("Credentials Deleted!!!\nSignup Again: ")
+
+        time.sleep(2)
+
+        signup()
+
+    stored_user = str(decrypt(stored_username))
+
+    stored_pass = str(decrypt(stored_password))
+
+    if stored_user == str(username) and stored_pass == str(password):
+
+        print("Login Successful\nRedirecting to Game...")
+
+        time.sleep(1)
+
+        game()
+
+        return  # Important to stop further execution
+
+        # If loop finishes without finding a match
+
+    else:
+
+        print("Login Failed\nRedirecting to Login Screen...")
+
+        time.sleep(1)
+
+        login()
+
 
 def game():
 
@@ -200,7 +241,7 @@ def signup():
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    uname = input("(Warning the credentials will delete automatically on file exit)\nEnter Your UserName to register or exit to return: ")
+    uname = input("Enter Your UserName to register or exit to return: ")
 
     if uname==" " or uname=="":
 
@@ -222,15 +263,15 @@ def signup():
                 
             confirm = input("Do you want to continue(y/n): ")
 
-            if confirm =="y" or confirm == "Y" or confirm == "Yes" or confirm == "yes":
+            if confirm.lower() =="y" or confirm.lower == "yes":
 
-                user.append(uname)
+                with open(".credential.txt", "a") as file:
 
-                pswd.append(str(pswd2))
+                    uname_new = encrypt(uname)
 
-                # print(user)
+                    pswd2_new = encrypt(pswd2)
 
-                # print(pswd)
+                    file.write(f"{uname_new}:{pswd2_new}\n")
 
                 print("Signup Successful!!!")
 
@@ -268,43 +309,43 @@ def login():
 
         inp_pswd = input("Enter Your Password: ")
 
-        if inp_user in user:
+        verify_login(inp_user,inp_pswd)
 
-            index = user.index(inp_user)
+        # if inp_user in user:
 
-            if str(inp_pswd) == str(pswd[index]):
+        #     index = user.index(inp_user)
 
-                print("Login Successfull!!!\nRedirecting to Game...")
+        #     if str(inp_pswd) == str(pswd[index]):
 
-                time.sleep(2)
+        #         print("Login Successfull!!!\nRedirecting to Game...")
 
-                os.system('cls' if os.name == 'nt' else 'clear')
+        #         time.sleep(2)
 
-                game()
+        #         os.system('cls' if os.name == 'nt' else 'clear')
+
+        #         game()
             
-            else:
+        #     else:
 
-                print("Credientials Mismatch!!\nRedirecting to Login Screen...")
+        #         print("Credientials Mismatch!!\nRedirecting to Login Screen...")
 
-                time.sleep(1)
+        #         time.sleep(1)
 
-                os.system('cls' if os.name == 'nt' else 'clear')
+        #         os.system('cls' if os.name == 'nt' else 'clear')
 
-                login()
+        #         login()
 
-        else:
+        # else:
 
-            print("No user found\nRedirecting to Login Screen...")
+        #     print("No user found\nRedirecting to Login Screen...")
 
-            time.sleep(1)
+        #     time.sleep(1)
 
-            os.system('cls' if os.name == 'nt' else 'clear')
+        #     os.system('cls' if os.name == 'nt' else 'clear')
 
-            login()
+        #     login()
 
 def main():
-
-    time.sleep(2)
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -327,6 +368,10 @@ def main():
         else:
 
             print("Enter Correct Value...")
+
+            time.sleep(1)
+            
+            main()
 
     except ValueError:
 
