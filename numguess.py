@@ -241,7 +241,7 @@ def signup():
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    uname = input("Enter Your UserName to register or exit to return and don't use Numbers in username: ")
+    uname = input("Enter Your UserName to register or exit to return\n(Don't enter number or the program may crash)\n=>")
 
     if uname==" " or uname=="":
 
@@ -255,7 +255,7 @@ def signup():
 
     else:
 
-        pswd2 = str(input("Enter Your Password to login don't use numbers: "))
+        pswd2 = str(input("Enter Your Password to login\n(Don't enter number or the program may crash)\n=>"))
 
         pswd3 = str(input("Enter Your Password Again: "))
 
