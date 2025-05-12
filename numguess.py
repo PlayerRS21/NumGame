@@ -61,9 +61,9 @@ def game():
 
         global i
 
-        while i < 4:
+        while i < 6:
 
-            guess = input(f"Guess A Number Between 1 to {len(list1)} {{{i}/3}}\n=>")
+            guess = input(f"Guess A Number Between 1 to {len(list1)} {{{i}/5}}\n=>")
 
             try:
 
